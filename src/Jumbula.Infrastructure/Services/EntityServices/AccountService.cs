@@ -64,6 +64,7 @@ public class AccountService : IAccountService
         return await _jwtService.GenerateToken(business);
     }
 
+
     private async Task AddUserToRole(User user, string roleName)
     {
         var roleExists = await _roleManager.RoleExistsAsync(roleName);
