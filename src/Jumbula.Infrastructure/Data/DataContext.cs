@@ -14,7 +14,7 @@ public class DataContext : IdentityDbContext<User, Role, Guid>
         base.OnModelCreating(modelBuilder);
 
         var entitiesAssembly = typeof(IBaseEntity).Assembly;
-
+        modelBuilder.RegisterAllEntities<IBaseEntity>(entitiesAssembly);
         modelBuilder.AddRestrictDeleteBehaviorConvention();
         modelBuilder.AddPluralizingTableNameConvention();
         modelBuilder.AddSequentialGuidForIdConvention();
