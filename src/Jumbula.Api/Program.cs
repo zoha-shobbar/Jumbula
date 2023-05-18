@@ -1,3 +1,6 @@
+using Jumbula.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +10,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContextFactory<DataContext>(
+    options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOpt =>
+        {
+            sqlOpt.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+        });
+        options.EnableDetailedErrors();
+    });
+
+
 var app = builder.Build();
+
+var dbcontext = app.Services.GetRequiredService<IDbContextFactory<DataContext>>();
+DataInitializer.Initialize(dbcontext.CreateDbContext());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
