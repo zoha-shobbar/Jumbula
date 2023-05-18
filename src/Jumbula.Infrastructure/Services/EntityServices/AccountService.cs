@@ -3,6 +3,7 @@ using Jumbula.Application.Constants;
 using Jumbula.Application.Dtos;
 using Jumbula.Application.Dtos.Jwt;
 using Jumbula.Application.Responses;
+using Jumbula.Application.Services.EntityServices;
 using Jumbula.Domain.Entities;
 using Jumbula.Domain.Entities.Account;
 using Jumbula.Infrastructure.Services.Jwt;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jumbula.Infrastructure.Services.EntityServices;
-public class AccountService
+public class AccountService : IAccountService
 {
     private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;
