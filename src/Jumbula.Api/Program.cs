@@ -26,6 +26,8 @@ var settings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSett
 builder.Services.AddCustomIdentity(settings.IdentitySettings);
 builder.Services.AddJwtAuthentication(settings.JwtSettings);
 
+builder.Services.AddJumbulaServices();
+
 var app = builder.Build();
 
 var dbcontext = app.Services.GetRequiredService<IDbContextFactory<DataContext>>();
