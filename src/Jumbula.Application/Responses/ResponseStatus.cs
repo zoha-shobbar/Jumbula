@@ -7,5 +7,6 @@ public enum ResponseStatus
     UnknownError,
     AlreadyExists,
     NotAllowed,
-    RequiredDataNotFilled
+    RequiredDataNotFilled,
+    UserNotFound
 }
