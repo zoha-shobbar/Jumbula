@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Jumbula.Application.Constants;
 using Jumbula.Application.Dtos;
 using Jumbula.Application.Dtos.Jwt;
 using Jumbula.Application.Responses;
@@ -56,6 +57,17 @@ public class AccountService
         if (!result.Succeeded)
             return ResponseStatus.UnknownError;
 
+        await AddUserToRole(business, nameof(RoleConstants.Business));
+
         return await _jwtService.GenerateToken(business);
+    }
+
+    private async Task AddUserToRole(User user, string roleName)
+    {
+        var roleExists = await _roleManager.RoleExistsAsync(roleName);
+        if (!roleExists)
+            await _roleManager.CreateAsync(new Role { Name = roleName, NormalizedName = roleName.Normalize() });
+
+        var result = await _userManager.AddToRoleAsync(user, roleName);
     }
 }
