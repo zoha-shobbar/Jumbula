@@ -27,6 +27,6 @@ public class AccountController : ControllerBase
     [HttpPost("[action]")]
     public async Task<SingleResponse<AccessToken>> RegisterBusiness(SignUpBusinessInputDto input)
     {
-        return await RegisterBusiness(input);
+        return await _service.RegisterBusiness(input);
     }
 }

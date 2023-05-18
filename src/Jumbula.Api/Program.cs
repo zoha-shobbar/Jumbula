@@ -1,4 +1,5 @@
 using Jumbula.Application;
+using Jumbula.Application.Mappers;
 using Jumbula.Infrastructure.Data;
 using Jumbula.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -22,11 +23,15 @@ builder.Services.AddDbContextFactory<DataContext>(
         options.EnableDetailedErrors();
     });
 
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
 var settings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
 builder.Services.AddCustomIdentity(settings.IdentitySettings);
 builder.Services.AddJwtAuthentication(settings.JwtSettings);
 
 builder.Services.AddJumbulaServices();
+
+builder.Services.AddAutoMapper(typeof(UserMapperConfiguration).Assembly);
 
 var app = builder.Build();
 

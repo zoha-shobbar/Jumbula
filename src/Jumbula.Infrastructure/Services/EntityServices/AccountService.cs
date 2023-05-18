@@ -41,7 +41,7 @@ public class AccountService : IAccountService
 
         var result = await _signInManager.PasswordSignInAsync(user, input.Password, false, false);
 
-        if (result.Succeeded)
+        if (!result.Succeeded)
             return ResponseStatus.UserNotFound;
 
         return await _jwtService.GenerateToken(user);
@@ -53,10 +53,11 @@ public class AccountService : IAccountService
         if (existedUser is not null) return ResponseStatus.AlreadyExists;
 
         Business business = _mapper.Map<SignUpBusinessInputDto, Business>(input);
+        business.UserName = input.Email;
 
         var result = await _userManager.CreateAsync(business, input.Password);
         if (!result.Succeeded)
-            return ResponseStatus.UnknownError;
+            return new(ResponseStatus.UnknownError,result.Errors.FirstOrDefault().Description);
 
         await AddUserToRole(business, nameof(RoleConstants.Business));
 
