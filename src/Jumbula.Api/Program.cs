@@ -1,4 +1,6 @@
+using Jumbula.Application;
 using Jumbula.Infrastructure.Data;
+using Jumbula.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,9 @@ builder.Services.AddDbContextFactory<DataContext>(
         options.EnableDetailedErrors();
     });
 
+var settings = builder.Configuration.GetSection(nameof(AppSettings)).Get<AppSettings>();
+builder.Services.AddCustomIdentity(settings.IdentitySettings);
+builder.Services.AddJwtAuthentication(settings.JwtSettings);
 
 var app = builder.Build();
 
