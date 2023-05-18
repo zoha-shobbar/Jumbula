@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Jumbula.Infrastructure\Jumbula.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
