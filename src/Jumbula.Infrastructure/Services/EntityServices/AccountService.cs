@@ -4,14 +4,17 @@ using Jumbula.Application.Dtos;
 using Jumbula.Application.Dtos.Jwt;
 using Jumbula.Application.Responses;
 using Jumbula.Application.Services.EntityServices;
+using Jumbula.Application.Services.EntityServices.Common;
 using Jumbula.Domain.Entities;
 using Jumbula.Domain.Entities.Account;
+using Jumbula.Domain.Repositories.Common;
 using Jumbula.Infrastructure.Services.Jwt;
+using LMS.Infrastructure.Services.EntityServices.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Jumbula.Infrastructure.Services.EntityServices;
-public class AccountService : IAccountService
+public class AccountService : BaseService<User, SignInInputDto>, IAccountService
 {
     private readonly SignInManager<User> _signInManager;
     private readonly UserManager<User> _userManager;
@@ -23,7 +26,8 @@ public class AccountService : IAccountService
         UserManager<User> userManager,
         RoleManager<Role> roleManager,
         IJwtService jwtService,
-        IMapper mapper)
+        IBaseRepository<User> repository,
+        IMapper mapper) : base(repository, mapper)
     {
         _signInManager = signInManager;
         _userManager = userManager;
@@ -75,10 +79,13 @@ public class AccountService : IAccountService
 
         if (familyId is null)
         {
+            var isInsuranceExist = GetAll<Insurance>().Where(x => x.Id == input.InsuranceId).Any();
+            if (!isInsuranceExist) return ResponseStatus.NotFound;
+
             if (input.InsuranceId is null) return ResponseStatus.RequiredDataNotFilled;
             Family family = new() { InsuranceId = input.InsuranceId!.Value };
 
-            //create a family
+            await Create<Family>(family);
             parent.FamilyId = family.Id;
         }
         else

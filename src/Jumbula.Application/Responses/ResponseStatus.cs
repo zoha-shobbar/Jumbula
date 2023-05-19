@@ -8,5 +8,6 @@ public enum ResponseStatus
     AlreadyExists,
     NotAllowed,
     RequiredDataNotFilled,
-    UserNotFound
+    UserNotFound,
+    InsuranceNotFound
 }

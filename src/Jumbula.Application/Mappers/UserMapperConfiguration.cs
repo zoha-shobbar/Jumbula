@@ -8,5 +8,6 @@ public class UserMapperConfiguration : Profile
     public UserMapperConfiguration()
     {
         CreateMap<SignUpBusinessInputDto, Business>().ReverseMap();
+        CreateMap< SignUpParentInputDto, Parent>().ReverseMap();
     }
 }

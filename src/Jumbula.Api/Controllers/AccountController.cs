@@ -29,4 +29,16 @@ public class AccountController : ControllerBase
     {
         return await _service.RegisterBusiness(input);
     }
+
+    [HttpPost("[action]/{familyId}")]
+    public async Task<SingleResponse<AccessToken>> RegisterParent(Guid familyId, SignUpParentInputDto input)
+    {
+        return await _service.RegisterParent(familyId, input);
+    }
+
+    [HttpPost("[action]")]
+    public async Task<SingleResponse<AccessToken>> RegisterParent(SignUpParentInputDto input)
+    {
+        return await _service.RegisterParent(null, input);
+    }
 }
