@@ -16,7 +16,7 @@ public class BaseTest
                 builder.ConfigureServices(services =>
                 {
                     services.RemoveAll(typeof(DataContext));
-                    services.AddDbContext<DataContext>(options =>
+                    services.AddDbContextFactory<DataContext>(options =>
                     {
                         options.UseInMemoryDatabase("Tests.Jumbula");
                     });
