@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using Jumbula.Application.Constants;
 using Jumbula.Application.Dtos;
 using Jumbula.Application.Dtos.Jwt;
 using Jumbula.Application.Responses;
 using Jumbula.Application.Services.EntityServices;
 using Jumbula.Application.Services.EntityServices.Common;
+using Jumbula.Application.Validations;
 using Jumbula.Domain.Entities;
 using Jumbula.Domain.Entities.Account;
 using Jumbula.Domain.Repositories.Common;
+using Jumbula.Infrastructure.Extensions;
 using Jumbula.Infrastructure.Services.Jwt;
 using LMS.Infrastructure.Services.EntityServices.Common;
 using Microsoft.AspNetCore.Identity;
@@ -70,6 +74,11 @@ public class AccountService : BaseService<User, SignInInputDto>, IAccountService
 
     public async Task<SingleResponse<AccessToken>> RegisterParent(Guid? familyId, SignUpParentInputDto input)
     {
+        ParentInputValidation validator = new();
+        ValidationResult results = validator.Validate(input);
+        if (!results.IsValid)
+            return new(ResponseStatus.Failed, results.GetAllErrorsString());
+
         var existedUser = await _userManager.FindByEmailAsync(input.Email);
         if (existedUser is not null) return ResponseStatus.AlreadyExists;
 
@@ -104,6 +113,12 @@ public class AccountService : BaseService<User, SignInInputDto>, IAccountService
 
     public async Task<SingleResponse<Student>> RegisterStudent(Guid parentId, SignUpStudentInputDto input)
     {
+        StudentInputValidation validator = new();
+        ValidationResult results = validator.Validate(input);
+        if (!results.IsValid)
+            return new(ResponseStatus.Failed, results.GetAllErrorsString());
+
+
         Parent? parent = GetAll<Parent>().Where(x => x.Id == parentId).FirstOrDefault();
         if (parent is null) return ResponseStatus.UserNotFound;
 
