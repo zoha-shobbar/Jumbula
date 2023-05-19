@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LMS.Infrastructure.Services.EntityServices.Common;
 public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
-    where TEntity : BaseEntity, new()
+    where TEntity : class,IBaseEntity, new()
     where TInput : class
 {
     private readonly IBaseRepository<TEntity> _repository;
@@ -37,7 +37,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
     }
 
     public virtual async Task<SingleResponse<TCustomEntity>> Create<TCustomEntity, TCustomInput>(TCustomInput input, CancellationToken cancellationToken = default)
-        where TCustomEntity : BaseEntity
+        where TCustomEntity : class, IBaseEntity
         where TCustomInput : class
     {
         var entity = _mapper.Map<TCustomInput, TCustomEntity>(input);
@@ -53,7 +53,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
     }
 
     public virtual async Task<SingleResponse<TCustomEntity>> Create<TCustomEntity>(TCustomEntity entity, CancellationToken cancellationToken = default)
-        where TCustomEntity : BaseEntity
+        where TCustomEntity : class, IBaseEntity
     {
         await _repository.Create(entity, cancellationToken);
 
@@ -84,7 +84,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
     }
 
     public virtual async Task<SingleResponse<TCustomEntity>> Update<TCustomEntity>(TCustomEntity input, CancellationToken cancellationToken = default)
-        where TCustomEntity : BaseEntity
+        where TCustomEntity : class, IBaseEntity
     {
         var entity = _repository.GetById<TCustomEntity>(input.Id);
 
@@ -99,7 +99,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
     }
 
     public virtual async Task<SingleResponse<TCustomEntity>> Update<TCustomEntity, TCustomInput>(Guid id, TCustomInput input, CancellationToken cancellationToken = default)
-        where TCustomEntity : BaseEntity
+        where TCustomEntity : class, IBaseEntity
         where TCustomInput : class
     {
         var entity = _repository.GetById<TCustomEntity>(id);
@@ -132,7 +132,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
     }
 
     public virtual async Task<JustResponse> Delete<TCustomEntity>(Guid id, CancellationToken cancellationToken = default)
-        where TCustomEntity : BaseEntity
+        where TCustomEntity : class, IBaseEntity
     {
         var entity = _repository.GetById<TCustomEntity>(id);
 
@@ -158,7 +158,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
         return SingleResponse<TEntity>.Success(entity);
     }
 
-    public virtual SingleResponse<TCustomEntity> Get<TCustomEntity>(Guid id) where TCustomEntity : BaseEntity
+    public virtual SingleResponse<TCustomEntity> Get<TCustomEntity>(Guid id) where TCustomEntity : class, IBaseEntity
     {
         var entity = _repository.GetById<TCustomEntity>(id);
 
@@ -182,7 +182,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
         return ListResponse<TEntity>.Success(entity);
     }
 
-    public virtual ListResponse<TCustomEntity> Get<TCustomEntity>() where TCustomEntity : BaseEntity
+    public virtual ListResponse<TCustomEntity> Get<TCustomEntity>() where TCustomEntity : class, IBaseEntity
     {
         var entity = _repository.GetAll<TCustomEntity>();
 
@@ -199,7 +199,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
         return _repository.GetAll();
     }
 
-    public virtual IQueryable<TCustomEntity> GetAll<TCustomEntity>() where TCustomEntity : BaseEntity
+    public virtual IQueryable<TCustomEntity> GetAll<TCustomEntity>() where TCustomEntity : class, IBaseEntity
     {
         return _repository.GetAll<TCustomEntity>();
     }
@@ -209,7 +209,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
         return _repository.GetAllAsNoTracking();
     }
 
-    public virtual IQueryable<TCustomEntity> GetAllAsNoTracking<TCustomEntity>() where TCustomEntity : BaseEntity
+    public virtual IQueryable<TCustomEntity> GetAllAsNoTracking<TCustomEntity>() where TCustomEntity : class, IBaseEntity
     {
         return _repository.GetAllAsNoTracking<TCustomEntity>();
     }
@@ -244,7 +244,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
         return SingleResponse<TCustomEntity>.Success(entity);
     }
 
-    public virtual ListResponse<TCustomEntity> GetAsNoTracking<TCustomEntity>() where TCustomEntity : BaseEntity
+    public virtual ListResponse<TCustomEntity> GetAsNoTracking<TCustomEntity>() where TCustomEntity : class, IBaseEntity
     {
         var entities = _repository.GetAllAsNoTracking<TCustomEntity>();
         return ListResponse<TCustomEntity>.Success(entities);
@@ -260,7 +260,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
     }
 
     public virtual ListResponse<TCustomOutput> GetAsNoTrackingWithDto<TCusomEntity, TCustomOutput>()
-        where TCusomEntity : BaseEntity
+        where TCusomEntity : class, IBaseEntity
         where TCustomOutput : class
     {
         var entities = _repository.GetAllAsNoTracking<TCusomEntity>();

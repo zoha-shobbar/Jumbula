@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Jumbula.Infrastructure.Repositories.Common;
 public class BaseRepository<TEntity> : IBaseRepository<TEntity>
-    where TEntity : BaseEntity, new()
+    where TEntity : class, IBaseEntity, new()
 {
     private readonly DataContext _dbContext;
 
@@ -21,7 +21,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return entity;
     }
 
-    public async Task<TCustomEntity> Create<TCustomEntity>(TCustomEntity entity, CancellationToken cancellationToken) where TCustomEntity :BaseEntity
+    public async Task<TCustomEntity> Create<TCustomEntity>(TCustomEntity entity, CancellationToken cancellationToken) where TCustomEntity : class, IBaseEntity
     {
         await _dbContext.Set<TCustomEntity>().AddAsync(entity, cancellationToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
@@ -38,7 +38,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return entity;
     }
 
-    public async Task<TCustomEntity> Update<TCustomEntity>(Guid id, TCustomEntity entity, CancellationToken cancellationToken) where TCustomEntity : BaseEntity
+    public async Task<TCustomEntity> Update<TCustomEntity>(Guid id, TCustomEntity entity, CancellationToken cancellationToken) where TCustomEntity : class, IBaseEntity
     {
         var onChangeEntity = _dbContext.Set<TCustomEntity>().Find(entity.Id);
         onChangeEntity = entity;
@@ -57,7 +57,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task Delete<TCustomEntity>(Guid id, CancellationToken cancellationToken) where TCustomEntity : BaseEntity
+    public async Task Delete<TCustomEntity>(Guid id, CancellationToken cancellationToken) where TCustomEntity : class, IBaseEntity
     {
         var entity = _dbContext.Set<TCustomEntity>().Find(id);
 
@@ -71,7 +71,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return _dbContext.Set<TEntity>().Find(id);
     }
 
-    public TCustomEntity? GetById<TCustomEntity>(Guid id) where TCustomEntity : BaseEntity
+    public TCustomEntity? GetById<TCustomEntity>(Guid id) where TCustomEntity : class, IBaseEntity
     {
         return _dbContext.Set<TCustomEntity>().Find(id);
     }
@@ -81,7 +81,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return _dbContext.Set<TEntity>();
     }
 
-    public IQueryable<TCustomEntity> GetAll<TCustomEntity>() where TCustomEntity :BaseEntity
+    public IQueryable<TCustomEntity> GetAll<TCustomEntity>() where TCustomEntity : class, IBaseEntity
     {
         return _dbContext.Set<TCustomEntity>();
     }
@@ -91,7 +91,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return _dbContext.Set<TEntity>().AsNoTracking();
     }
 
-    public IQueryable<TCustomEntity> GetAllAsNoTracking<TCustomEntity>() where TCustomEntity : BaseEntity
+    public IQueryable<TCustomEntity> GetAllAsNoTracking<TCustomEntity>() where TCustomEntity : class, IBaseEntity
     {
         return _dbContext.Set<TCustomEntity>().AsNoTracking();
     }
