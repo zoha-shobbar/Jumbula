@@ -102,7 +102,7 @@ public class AccountService : BaseService<User, SignInInputDto>, IAccountService
         return await _jwtService.GenerateToken(parent);
     }
 
-    public async Task<SingleResponse<AccessToken>> RegisterStudent(Guid parentId, SignUpStudentInputDto input)
+    public async Task<SingleResponse<Student>> RegisterStudent(Guid parentId, SignUpStudentInputDto input)
     {
         Parent? parent = GetAll<Parent>().Where(x => x.Id == parentId).FirstOrDefault();
         if (parent is null) return ResponseStatus.UserNotFound;
@@ -120,9 +120,9 @@ public class AccountService : BaseService<User, SignInInputDto>, IAccountService
         if (!result.Succeeded)
             return new(ResponseStatus.UnknownError, result.Errors.FirstOrDefault().Description);
 
-        await AddUserToRole(student, nameof(RoleConstants.Parent));
+        await AddUserToRole(student, nameof(RoleConstants.Student));
 
-        return await _jwtService.GenerateToken(student);
+        return student;
     }
 
     private async Task AddUserToRole(User user, string roleName)

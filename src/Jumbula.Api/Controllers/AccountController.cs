@@ -1,7 +1,11 @@
-﻿using Jumbula.Application.Dtos;
+﻿using Jumbula.Api.Extensions;
+using Jumbula.Application.Constants;
+using Jumbula.Application.Dtos;
 using Jumbula.Application.Dtos.Jwt;
 using Jumbula.Application.Responses;
 using Jumbula.Application.Services.EntityServices;
+using Jumbula.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,9 +46,11 @@ public class AccountController : ControllerBase
         return await _service.RegisterParent(null, input);
     }
 
-    [HttpPost("[action]/{parentId}")]
-    public async Task<SingleResponse<AccessToken>> RegisterStudent(Guid parentId, SignUpStudentInputDto input)
+    [HttpPost("[action]")]
+    [Authorize(Roles = $"{nameof(RoleConstants.Parent)}")]
+    public async Task<SingleResponse<Student>> RegisterStudent(SignUpStudentInputDto input)
     {
-        return await _service.RegisterStudent(parentId, input);
+        Guid userId = User.GetUserId();
+        return await _service.RegisterStudent(userId, input);
     }
 }
