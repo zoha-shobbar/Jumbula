@@ -10,4 +10,6 @@ public class Student : User
     public string LastName { get; set; }
     public string Gender { get; set; }
     public DateTime DateOfBirth { get; set; }
+
+    public Guid FamilyId { get; set; }
 }

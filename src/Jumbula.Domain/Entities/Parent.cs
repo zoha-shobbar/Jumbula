@@ -10,8 +10,12 @@ public class Parent : User
     public string LastName { get; set; }
     public string Gender { get; set; }
     public DateTime DateOfBirth { get; set; }
-    
+
     public Guid ContactInfoId { get; set; }
     public ContactInfo ContactInfo { get; set; }
+
+    public Guid FamilyId { get; set; }
+    public Family Family { get; set; }
+
 }
 

@@ -57,13 +57,43 @@ public class AccountService : IAccountService
 
         var result = await _userManager.CreateAsync(business, input.Password);
         if (!result.Succeeded)
-            return new(ResponseStatus.UnknownError,result.Errors.FirstOrDefault().Description);
+            return new(ResponseStatus.UnknownError, result.Errors.FirstOrDefault().Description);
 
         await AddUserToRole(business, nameof(RoleConstants.Business));
 
         return await _jwtService.GenerateToken(business);
     }
 
+    public async Task<SingleResponse<AccessToken>> RegisterParent(Guid? familyId, SignUpParentInputDto input)
+    {
+        var existedUser = await _userManager.FindByEmailAsync(input.Email);
+        if (existedUser is not null) return ResponseStatus.AlreadyExists;
+
+        Parent parent = _mapper.Map<SignUpParentInputDto, Parent>(input);
+
+        parent.UserName = input.Email;
+
+        if (familyId is null)
+        {
+            if (input.InsuranceId is null) return ResponseStatus.RequiredDataNotFilled;
+            Family family = new() { InsuranceId = input.InsuranceId!.Value };
+
+            //create a family
+            parent.FamilyId = family.Id;
+        }
+        else
+        {
+            parent.FamilyId = familyId.Value;
+        }
+
+        var result = await _userManager.CreateAsync(parent, input.Password);
+        if (!result.Succeeded)
+            return new(ResponseStatus.UnknownError, result.Errors.FirstOrDefault().Description);
+
+        await AddUserToRole(parent, nameof(RoleConstants.Parent));
+
+        return await _jwtService.GenerateToken(parent);
+    }
 
     private async Task AddUserToRole(User user, string roleName)
     {
