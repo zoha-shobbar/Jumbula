@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jumbula.Domain", "src\Jumbula.Domain\Jumbula.Domain.csproj", "{18E0045B-81DF-4EA1-B95E-9D669BC2733E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jumbula.Domain", "src\Jumbula.Domain\Jumbula.Domain.csproj", "{18E0045B-81DF-4EA1-B95E-9D669BC2733E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{667AE4A2-75B3-4A6F-A2DA-291C78E6BE8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jumbula.Application", "src\Jumbula.Application\Jumbula.Application.csproj", "{CC8C6BB0-B058-456C-AD4C-18DAE47B7EE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jumbula.Application", "src\Jumbula.Application\Jumbula.Application.csproj", "{CC8C6BB0-B058-456C-AD4C-18DAE47B7EE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jumbula.Infrastructure", "src\Jumbula.Infrastructure\Jumbula.Infrastructure.csproj", "{CFBF0395-5A8D-423F-B448-DE0F16007F76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jumbula.Infrastructure", "src\Jumbula.Infrastructure\Jumbula.Infrastructure.csproj", "{CFBF0395-5A8D-423F-B448-DE0F16007F76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jumbula.Api", "src\Jumbula.Api\Jumbula.Api.csproj", "{D2D3B3E1-4F47-4D89-9B96-4DC6FE0631CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jumbula.Api", "src\Jumbula.Api\Jumbula.Api.csproj", "{D2D3B3E1-4F47-4D89-9B96-4DC6FE0631CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1F888028-067C-4FEF-B2F1-3103A2B90962}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
