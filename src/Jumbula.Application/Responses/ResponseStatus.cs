@@ -9,5 +9,5 @@ public enum ResponseStatus
     NotAllowed,
     RequiredDataNotFilled,
     UserNotFound,
-    InsuranceNotFound
+    InsuranceNotFound,
 }

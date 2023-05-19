@@ -9,5 +9,6 @@ public class UserMapperConfiguration : Profile
     {
         CreateMap<SignUpBusinessInputDto, Business>().ReverseMap();
         CreateMap< SignUpParentInputDto, Parent>().ReverseMap();
+        CreateMap< SignUpStudentInputDto, Student>().ReverseMap();
     }
 }

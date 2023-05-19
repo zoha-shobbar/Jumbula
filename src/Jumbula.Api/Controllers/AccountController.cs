@@ -41,4 +41,10 @@ public class AccountController : ControllerBase
     {
         return await _service.RegisterParent(null, input);
     }
+
+    [HttpPost("[action]/{parentId}")]
+    public async Task<SingleResponse<AccessToken>> RegisterStudent(Guid parentId, SignUpStudentInputDto input)
+    {
+        return await _service.RegisterStudent(parentId, input);
+    }
 }

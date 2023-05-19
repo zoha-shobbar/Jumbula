@@ -10,4 +10,5 @@ public interface IAccountService : IBaseService<User, SignInInputDto>
     Task<SingleResponse<AccessToken>> SignIn(SignInInputDto input);
     Task<SingleResponse<AccessToken>> RegisterBusiness(SignUpBusinessInputDto input);
     Task<SingleResponse<AccessToken>> RegisterParent(Guid? familyId, SignUpParentInputDto input);
+    Task<SingleResponse<AccessToken>> RegisterStudent(Guid parentId, SignUpStudentInputDto input);
 }

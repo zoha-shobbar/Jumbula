@@ -80,7 +80,7 @@ public class AccountService : BaseService<User, SignInInputDto>, IAccountService
         if (familyId is null)
         {
             var isInsuranceExist = GetAll<Insurance>().Where(x => x.Id == input.InsuranceId).Any();
-            if (!isInsuranceExist) return ResponseStatus.NotFound;
+            if (!isInsuranceExist) return ResponseStatus.InsuranceNotFound;
 
             if (input.InsuranceId is null) return ResponseStatus.RequiredDataNotFilled;
             Family family = new() { InsuranceId = input.InsuranceId!.Value };
@@ -100,6 +100,29 @@ public class AccountService : BaseService<User, SignInInputDto>, IAccountService
         await AddUserToRole(parent, nameof(RoleConstants.Parent));
 
         return await _jwtService.GenerateToken(parent);
+    }
+
+    public async Task<SingleResponse<AccessToken>> RegisterStudent(Guid parentId, SignUpStudentInputDto input)
+    {
+        Parent? parent = GetAll<Parent>().Where(x => x.Id == parentId).FirstOrDefault();
+        if (parent is null) return ResponseStatus.UserNotFound;
+
+        var existedUser = await _userManager.FindByEmailAsync(input.Email);
+        if (existedUser is not null) return ResponseStatus.AlreadyExists;
+
+        Student student = _mapper.Map<SignUpStudentInputDto, Student>(input);
+
+        student.UserName = input.Email;
+        student.FamilyId = parent.FamilyId;
+
+
+        var result = await _userManager.CreateAsync(student, input.Password);
+        if (!result.Succeeded)
+            return new(ResponseStatus.UnknownError, result.Errors.FirstOrDefault().Description);
+
+        await AddUserToRole(student, nameof(RoleConstants.Parent));
+
+        return await _jwtService.GenerateToken(student);
     }
 
     private async Task AddUserToRole(User user, string roleName)
