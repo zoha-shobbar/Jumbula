@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jumbula.Api", "src\Jumbula.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1F888028-067C-4FEF-B2F1-3103A2B90962}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jumbula.Test", "test\Jumbula.Test\Jumbula.Test.csproj", "{7143C7EC-AAEB-4B81-AF18-F208612D7FDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{D2D3B3E1-4F47-4D89-9B96-4DC6FE0631CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2D3B3E1-4F47-4D89-9B96-4DC6FE0631CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2D3B3E1-4F47-4D89-9B96-4DC6FE0631CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7143C7EC-AAEB-4B81-AF18-F208612D7FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7143C7EC-AAEB-4B81-AF18-F208612D7FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7143C7EC-AAEB-4B81-AF18-F208612D7FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7143C7EC-AAEB-4B81-AF18-F208612D7FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{CC8C6BB0-B058-456C-AD4C-18DAE47B7EE2} = {667AE4A2-75B3-4A6F-A2DA-291C78E6BE8E}
 		{CFBF0395-5A8D-423F-B448-DE0F16007F76} = {667AE4A2-75B3-4A6F-A2DA-291C78E6BE8E}
 		{D2D3B3E1-4F47-4D89-9B96-4DC6FE0631CB} = {667AE4A2-75B3-4A6F-A2DA-291C78E6BE8E}
+		{7143C7EC-AAEB-4B81-AF18-F208612D7FDF} = {1F888028-067C-4FEF-B2F1-3103A2B90962}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B11CF2D-F8D0-4DD9-AE12-916D4C0FD381}
