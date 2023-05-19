@@ -18,5 +18,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IJwtService, JwtService>();
 
         services.AddScoped<IAccountService, AccountService>();
+        services.AddScoped<IFamilyService, FamilyService>();
     }
 }

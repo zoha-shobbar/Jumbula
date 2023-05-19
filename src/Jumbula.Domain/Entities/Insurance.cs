@@ -8,5 +8,5 @@ public class Insurance : BaseEntity
     public string PolicyNumber { get; set; }
     public string CompanyPhone { get; set; }
 
-    public ICollection<Family> Families { get; set; }
+    //public ICollection<Family> Families { get; set; }
 }

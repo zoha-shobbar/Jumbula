@@ -159,7 +159,7 @@ namespace Jumbula.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("Jumbula.Domain.Entities.ContactInfo", b =>
@@ -184,7 +184,7 @@ namespace Jumbula.Infrastructure.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("ContactInfos");
+                    b.ToTable("ContactInfos", (string)null);
                 });
 
             modelBuilder.Entity("Jumbula.Domain.Entities.Family", b =>
@@ -201,7 +201,7 @@ namespace Jumbula.Infrastructure.Migrations
 
                     b.HasIndex("InsuranceId");
 
-                    b.ToTable("Families");
+                    b.ToTable("Families", (string)null);
                 });
 
             modelBuilder.Entity("Jumbula.Domain.Entities.Insurance", b =>
@@ -228,7 +228,7 @@ namespace Jumbula.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Insurances");
+                    b.ToTable("Insurances", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -341,7 +341,7 @@ namespace Jumbula.Infrastructure.Migrations
                     b.Property<Guid>("ExternalId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.ToTable("Businesses");
+                    b.ToTable("Businesses", (string)null);
                 });
 
             modelBuilder.Entity("Jumbula.Domain.Entities.Parent", b =>
@@ -373,7 +373,7 @@ namespace Jumbula.Infrastructure.Migrations
 
                     b.HasIndex("FamilyId");
 
-                    b.ToTable("Parents");
+                    b.ToTable("Parents", (string)null);
                 });
 
             modelBuilder.Entity("Jumbula.Domain.Entities.Student", b =>
@@ -400,7 +400,7 @@ namespace Jumbula.Infrastructure.Migrations
 
                     b.HasIndex("FamilyId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Jumbula.Domain.Entities.ContactInfo", b =>

@@ -4,12 +4,19 @@ using Jumbula.Infrastructure.Data;
 using Jumbula.Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddMvc().AddNewtonsoftJson(opt =>
+{
+    opt.SerializerSettings.ReferenceLoopHandling =
+        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    opt.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
