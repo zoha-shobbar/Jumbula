@@ -232,7 +232,7 @@ public class BaseService<TEntity, TInput> : IBaseService<TEntity, TInput>
         return SingleResponse<TEntity>.Success(entity);
     }
 
-    public virtual async Task<SingleResponse<TCustomEntity>> GetAsNoTracking<TCustomEntity>(Guid id, CancellationToken cancellationToken) where TCustomEntity : BaseEntity
+    public virtual async Task<SingleResponse<TCustomEntity>> GetAsNoTracking<TCustomEntity>(Guid id, CancellationToken cancellationToken) where TCustomEntity : class, IBaseEntity
     {
         var entity = await _repository.GetAllAsNoTracking<TCustomEntity>()
             .Where(x => x.Id == id)
